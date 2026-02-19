@@ -1,5 +1,6 @@
 #include <n7OS/console.h>
 #include <n7OS/cpu.h>
+#include <stdio.h>
 
 uint16_t *scr_tab;
 uint16_t curs;
@@ -13,10 +14,15 @@ void console_putcurs(uint16_t curs) {
     scr_tab[curs] = CHAR_COLOR<<8|0;
 }
 
+void console_putuser() {
+    printf("zizi@caca~:$");
+}
+
 void init_console() {
     scr_tab= (uint16_t *) SCREEN_ADDR;
     curs = 0;
     console_putcurs(curs);
+    console_putuser();
 }
 
 
@@ -35,12 +41,14 @@ void console_putchar(const char c) {
     } else if (c == 10) {
         // retour à la ligne \n
         curs = ((curs/80) + 1) * 80;
+        console_putuser();
     } else if (c == 12) {
         // remise à zéro
         for (int i = 0 ; i < 2000 ; i++) {
             scr_tab[i] = CHAR_COLOR<<8|0;
         }
         curs = 0;
+        console_putuser();
     } else if (c == 13) {
         // retour au début de ligne
         curs = curs - curs%80;
@@ -48,6 +56,8 @@ void console_putchar(const char c) {
 
     console_putcurs(curs);
 }
+
+
 
 void console_putbytes(const char *s, int len) {
     for (int i= 0; i<len; i++) {
