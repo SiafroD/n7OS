@@ -15,16 +15,9 @@ void console_putcurs(uint16_t curs) {
 }
 
 void console_putuser() {
+    //affichage de l'utilisateur (pour l'instant fait en dur)   
     printf("zizi@caca~:$");
 }
-
-void init_console() {
-    scr_tab= (uint16_t *) SCREEN_ADDR;
-    curs = 0;
-    console_putcurs(curs);
-    console_putuser();
-}
-
 
 void console_putchar(const char c) {
     if (c > 31 && c < 127) {
@@ -53,14 +46,25 @@ void console_putchar(const char c) {
         // retour au début de ligne
         curs = curs - curs%80;
     }
-
+    //afficher le curseur
     console_putcurs(curs);
 }
-
-
 
 void console_putbytes(const char *s, int len) {
     for (int i= 0; i<len; i++) {
         console_putchar(s[i]);
     }
+}
+
+void init_console() {
+    //initialisation du tableau
+    scr_tab= (uint16_t *) SCREEN_ADDR;
+    //initialisation du curseur
+    curs = 0;
+    //effacer le terminal
+    console_putchar(12);
+    //afficher l'utilisateur
+    console_putuser();
+    //afficher le curseur
+    console_putcurs(curs);
 }
