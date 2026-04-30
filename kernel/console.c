@@ -63,8 +63,6 @@ void init_console() {
     curs = 0;
     //effacer le terminal
     console_putchar(12);
-    //afficher l'utilisateur
-    console_putuser();
     //afficher le curseur
     console_putcurs(curs);
 }

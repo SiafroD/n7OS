@@ -3,12 +3,18 @@
 #include <n7OS/processor_structs.h>
 #include <n7OS/console.h>
 #include <stdio.h>
+#include <n7OS/paging.h>
+#include <n7OS/mem.h>
 
 void kernel_start(void)
 {
     init_console();
-    printf("\f");
-    setup_base(0 /* la memoire virtuelle n'est pas encore definie */);
+    
+    initialise_paging();
+
+
+    //print_mem();
+
 
     // lancement des interruptions
     sti();
