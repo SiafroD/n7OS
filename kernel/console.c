@@ -1,6 +1,7 @@
 #include <n7OS/console.h>
 #include <n7OS/cpu.h>
 #include <stdio.h>
+#include <n7OS/time.h>
 
 uint16_t *scr_tab;
 uint16_t curs;
@@ -17,6 +18,15 @@ void console_putcurs(uint16_t curs) {
 void console_putuser() {
     //affichage de l'utilisateur (pour l'instant fait en dur)   
     printf("zizi@caca~:$");
+}
+
+void console_puttime() {
+    //affichage de l'heure
+    time_t t = get_time_from_ticks(timer_ticks);
+    uint16_t temp = curs;
+    curs = VGA_WIDTH - 16;
+    printf("%02d:%02d:%02d\n", t.hours, t.min, t.sec);
+    curs = temp;
 }
 
 void console_putchar(const char c) {

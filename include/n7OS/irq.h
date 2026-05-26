@@ -5,6 +5,12 @@
 #include <n7OS/segment.h>
 #include <n7OS/processor_structs.h>
 
+#define PIC_COMMAND_PORT 0x20
+#define PIC_DATA_PORT 0x21
+
+#define IRQ_TIMER_PORT 0
+#define TIMER_INTERRUPT_ID 0x20
+
 /*
 Une entrée dans l'IDT est sur 64 bits
 
@@ -25,6 +31,8 @@ typedef struct {
   uint16_t offset_sup;
 } idt_entry_t;
 
+void handler_timer();
 void init_irq_entry(int irq_num, uint32_t addr);
+void init_irq_timer();
 
 #endif
