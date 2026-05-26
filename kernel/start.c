@@ -6,11 +6,15 @@
 #include <n7OS/paging.h>
 #include <n7OS/mem.h>
 
+void init_irq();
+
 void kernel_start(void)
 {
     init_console();
     
     initialise_paging();
+
+    init_irq();
 
 
     //print_mem();
@@ -18,6 +22,8 @@ void kernel_start(void)
 
     // lancement des interruptions
     sti();
+
+    __asm__("int $50");
 
     // on ne doit jamais sortir de kernel_start
     while (1) {
