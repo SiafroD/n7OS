@@ -7,6 +7,8 @@
 #include <n7OS/mem.h>
 #include <n7OS/irq.h>
 #include <n7OS/time.h>
+#include <unistd.h>
+#include <n7OS/sys.h>
 
 
 void kernel_start(void)
@@ -21,6 +23,8 @@ void kernel_start(void)
     init_irq_timer();
 
     init_timer();
+
+    init_syscall();
 
     console_puttime();
 
@@ -38,9 +42,14 @@ void kernel_start(void)
 
         time = get_time_from_ticks(timer_ticks);
         if (time.sec != init_time) {
-            time.sec = init_time;
+            init_time = time.sec;
             console_puttime();
         }       
+        /*
+        if (time.sec == 5) {
+            shutdown(1);
+        }
+        */
         hlt();
     }
 }
