@@ -1,6 +1,5 @@
 #include <n7OS/console.h>
 #include <n7OS/cpu.h>
-#include <stdio.h>
 #include <n7OS/time.h>
 
 uint16_t *scr_tab;

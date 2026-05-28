@@ -10,6 +10,7 @@
 #include <n7OS/unistd.h>
 #include <n7OS/sys.h>
 #include <n7OS/keyboard.h>
+#include <n7OS/processus.h>
 
 
 void kernel_start(void)
@@ -21,6 +22,8 @@ void kernel_start(void)
     
     initialise_paging();
 
+    init_processus();
+
     init_irq();
 
     init_timer();
@@ -30,6 +33,10 @@ void kernel_start(void)
     init_keyboard();
 
     console_puttime();
+
+    create_process(function1);
+
+    create_process(function2);
 
 
     //print_mem();
@@ -68,6 +75,11 @@ void kernel_start(void)
                     printf("%c", character);
             }
         }
+
+        if (time.sec == 20) {
+            schedule();
+        }
+           
 
         console_putcurs();
 

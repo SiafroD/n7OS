@@ -2,6 +2,7 @@
 #define __CONSOLE_H__
 
 #include <inttypes.h>
+//#include <../stdio.h>
 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
