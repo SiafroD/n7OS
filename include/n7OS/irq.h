@@ -11,6 +11,9 @@
 #define IRQ_TIMER_PORT 0
 #define TIMER_INTERRUPT_ID 0x20
 
+#define IRQ_KEYBOARD_PORT 1
+#define KEYBOARD_INTERRUPT_ID 0x21
+
 /*
 Une entrée dans l'IDT est sur 64 bits
 
@@ -33,6 +36,8 @@ typedef struct {
 
 void handler_timer();
 void init_irq_entry(int irq_num, uint32_t addr);
+void init_irq();
 void init_irq_timer();
+void init_irq_keyboard();
 
 #endif

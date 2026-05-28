@@ -49,4 +49,6 @@ void console_putchar(char c);
 
 void console_puttime();
 
+void console_putcurs();
+
 #endif

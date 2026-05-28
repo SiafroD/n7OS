@@ -3,6 +3,15 @@
 
 #include <inttypes.h>
 
+extern uint8_t is_shift_pressed;
+extern uint8_t is_ctrl_pressed;
+extern uint8_t is_alt_pressed;
+
+extern uint16_t key_buffer[256];
+extern uint8_t buffer_size;
+extern uint8_t buffer_start;
+
+
 // Keyboard ports
 #define KEYB_ENCODER        0x60 
 #define KEYB_CONTROLLER     0x64
@@ -291,6 +300,6 @@ static uint16_t scancode_map_shift[] = {
 void init_keyboard();
 
 // Keyboard get character function
-char kgetch();
+uint16_t kgetch();
 
 #endif

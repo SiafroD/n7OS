@@ -9,6 +9,7 @@
 #include <n7OS/time.h>
 #include <n7OS/unistd.h>
 #include <n7OS/sys.h>
+#include <n7OS/keyboard.h>
 
 
 void kernel_start(void)
@@ -20,11 +21,13 @@ void kernel_start(void)
     
     initialise_paging();
 
-    init_irq_timer();
+    init_irq();
 
     init_timer();
 
     init_syscall();
+
+    init_keyboard();
 
     console_puttime();
 
@@ -45,11 +48,29 @@ void kernel_start(void)
             init_time = time.sec;
             console_puttime();
         }       
-        
+        /*
         if (time.sec == 5) {
             shutdown(1);
         }
-        
+        */
+
+        uint16_t character = kgetch();
+
+        if (character) {
+            switch(character) {
+                case KEY_RETURN:
+                    printf("\n");
+                    break;
+                case KEY_BACKSPACE:
+                    printf("\b");
+                    break;
+                default:
+                    printf("%c", character);
+            }
+        }
+
+        console_putcurs();
+
         hlt();
     }
 }

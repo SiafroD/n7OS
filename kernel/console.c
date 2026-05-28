@@ -6,10 +6,10 @@
 uint16_t *scr_tab;
 uint16_t curs;
 
-void console_putcurs(uint16_t curs) {
+void console_putcurs() {
     // positionnement du curseur en machine
     outb(CMD_LOW,PORT_CMD);
-    outb(curs&0xf,PORT_DATA);
+    outb(curs&0xff,PORT_DATA);
     outb(CMD_HIGH,PORT_CMD);
     outb(curs>>8,PORT_DATA);
     scr_tab[curs] = CHAR_COLOR<<8|0;
@@ -17,8 +17,8 @@ void console_putcurs(uint16_t curs) {
 
 void console_putuser() {
     //affichage de l'utilisateur (pour l'instant fait en dur)   
-    const char *prompt = "zizi@caca~:$";
-    console_putbytes(prompt, 12);
+    const char *prompt = "user@pc~:$";
+    console_putbytes(prompt, 10);
 }
 
 void console_puttime() {
@@ -37,7 +37,7 @@ void console_puttime() {
     console_putchar(':');
     console_putchar('0' + (s / 10));
     console_putchar('0' + (s % 10));
-    console_putchar('\n');
+    //console_putchar('\n');
     curs = temp;
 }
 
@@ -69,7 +69,8 @@ void console_putchar(const char c) {
         curs = curs - curs%80;
     }
     //afficher le curseur
-    console_putcurs(curs);
+    //console_putcurs();
+    
 }
 
 void console_putbytes(const char *s, int len) {
@@ -86,5 +87,5 @@ void init_console() {
     //effacer le terminal
     console_putchar(12);
     //afficher le curseur
-    console_putcurs(curs);
+    console_putcurs();
 }
