@@ -17,7 +17,8 @@ void console_putcurs(uint16_t curs) {
 
 void console_putuser() {
     //affichage de l'utilisateur (pour l'instant fait en dur)   
-    printf("zizi@caca~:$");
+    const char *prompt = "zizi@caca~:$";
+    console_putbytes(prompt, 12);
 }
 
 void console_puttime() {
@@ -25,7 +26,18 @@ void console_puttime() {
     time_t t = get_time_from_ticks(timer_ticks);
     uint16_t temp = curs;
     curs = VGA_WIDTH - 16;
-    printf("%02d:%02d:%02d\n", t.hours, t.min, t.sec);
+    int h = t.hours;
+    int m = t.min;
+    int s = t.sec;
+    console_putchar('0' + (h / 10));
+    console_putchar('0' + (h % 10));
+    console_putchar(':');
+    console_putchar('0' + (m / 10));
+    console_putchar('0' + (m % 10));
+    console_putchar(':');
+    console_putchar('0' + (s / 10));
+    console_putchar('0' + (s % 10));
+    console_putchar('\n');
     curs = temp;
 }
 
