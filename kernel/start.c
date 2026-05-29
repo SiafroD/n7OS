@@ -12,6 +12,18 @@
 #include <n7OS/keyboard.h>
 #include <n7OS/processus.h>
 
+/*
+IMPLEMENTATIONS :
+- console
+- pagination
+- interruptions (timer et clavier)
+- timer
+- syscall (shutdown et write)
+- clavier
+- processus (création de deux processus et ordonnancement à t = 10 secondes)
+
+*/
+
 
 void kernel_start(void)
 {
@@ -76,9 +88,6 @@ void kernel_start(void)
             }
         }
 
-        if (time.sec == 20) {
-            schedule();
-        }
            
 
         console_putcurs();

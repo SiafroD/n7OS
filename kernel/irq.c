@@ -3,6 +3,7 @@
 #include <n7OS/time.h>
 #include <n7OS/cpu.h>
 #include <n7OS/keyboard.h>
+#include <n7OS/processus.h>
 
 extern void handler_IT_timer();
 extern void handler_IT_keyboard();
@@ -10,6 +11,10 @@ extern void handler_IT_keyboard();
 void handler_timer() {
     outb(0x20, PIC_COMMAND_PORT); 
     timer_ticks++;
+    time_t t = get_time_from_ticks(timer_ticks);
+    if (t.sec == 10) {
+        schedule();
+    }
 }
 
 void handler_keyboard() {
